@@ -3,6 +3,7 @@
 	import { notes } from '@sudoku/stores/notes';
 	import { keyboardDisabled } from '@sudoku/stores/keyboard';
 	import { gamePaused } from '@sudoku/stores/game';
+	import { hints } from '@sudoku/stores/hints';
 
 	$: canUndo = $gameStore.canUndo;
 	$: canRedo = $gameStore.canRedo;
@@ -30,6 +31,10 @@
 	}
 
 	function handleHint() {
+		if ($hints <= 0) {
+			alert('提示次数已用完');
+			return;
+		}
 		const hint = gameStore.getHint();
 		if (hint) {
 			alert(`下一步提示：位置(${hint.row+1},${hint.col+1}) 应填 ${hint.value}`);
@@ -77,10 +82,14 @@
 		</button>
 	{/if}
 
-	<button class="btn btn-round" disabled={$keyboardDisabled || isExploring} on:click={handleHint} title="提示">
+	<button class="btn btn-round btn-badge" disabled={$keyboardDisabled || isExploring} on:click={handleHint} title="提示">
 		<svg class="icon-outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
 		</svg>
+
+		{#if $hints < 99999}
+			<span class="badge tracking-tighter" class:badge-primary={$hints > 0} class:bg-red-500={$hints === 0}>{$hints}</span>
+		{/if}
 	</button>
 
 	<button class="btn btn-round btn-badge" on:click={notes.toggle} title="Notes ({$notes ? 'ON' : 'OFF'})">

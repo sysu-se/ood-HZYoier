@@ -27,7 +27,7 @@
 		const cursorBoxY = Math.floor(cursorStore.y / BOX_SIZE);
 		const cellBoxX = Math.floor(x / BOX_SIZE);
 		const cellBoxY = Math.floor(y / BOX_SIZE);
-		return (cursorBoxX === cellBoxX && cellBoxY === cellBoxY);
+		return (cursorBoxX === cellBoxX && cursorBoxY === cellBoxY);
 	}
 
 	function getValueAtCursor(gridStore, cursorStore) {

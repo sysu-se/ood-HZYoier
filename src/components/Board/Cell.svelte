@@ -65,7 +65,7 @@
 		position: relative;
 		height: 100%;
 		width: 100%;
-		color: #374151;
+		@apply text-gray-800;
 	}
 
 	.cell-btn {
@@ -118,24 +118,23 @@
 	}
 
 	.user-number {
-		color: #3b82f6;
+		@apply text-primary;
 	}
 
-	.selected {
-		background-color: #3b82f6;
-		color: white;
+	.cell-inner.selected {
+		@apply bg-primary text-white;
 	}
 
 	.same-area {
-		background-color: #dbeafe;
+		@apply bg-primary-lighter;
 	}
 
 	.same-number {
-		background-color: #bfdbfe;
+		@apply bg-primary-light;
 	}
 
 	.conflicting-number {
-		color: #dc2626;
+		@apply text-red-600;
 	}
 
 	.exploring-cell {

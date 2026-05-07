@@ -9,8 +9,9 @@
 	import Header from './components/Header/index.svelte';
 	import Modal from './components/Modal/index.svelte';
 
-	const unsubscribeWon = gameStore.won.subscribe(won => {
-		if (won) {
+	// 订阅 gameStore 状态变化
+	const unsubscribeWon = gameStore.subscribe(state => {
+		if (state.won) {
 			pauseGame();
 			modal.show('gameover');
 		}
